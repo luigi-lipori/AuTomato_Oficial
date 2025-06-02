@@ -329,47 +329,50 @@ void loop() {
     Serial.println("Pomodoro iniciado!");
     //servo_motor();
     //delay(1000);
-    pomodoroIniciado = true;
-    iniciarFaseTrabalho();
+    pomodoroIniciado = true; // Nao entra mais no 1ro IF
+    iniciarFaseTrabalho(); // tempoRestante = tempoTrabalho  
     atualizarTela();
     lastSecond = millis();
     lastSecondNema = micros();
   }
 
-  if (pomodoroIniciado && millis() - lastSecond >= 1000 && num_ciclos > 0) {
+  if (pomodoroIniciado && (millis() - lastSecond >= 1000) && num_ciclos > 0) {
 
-    lastSecond += 1000;
+    lastSecond += 1000; //em milissegundos
     tempoRestante--;
-
+    //Atualiza a tela a cada 1000 seg
     if (tempoRestante >= 0) {
       atualizarTela();
     }
-
+    //Se acabou o tempo, toca o alarme e seta a proxima fase
     if (tempoRestante < 0 && !somTocado) {
-      somTocado = true;
 
-      if (emTrabalho) {
-        //encerrarFaseTrabalho();
-        playWorkEndTone();
-        iniciaFasePausa();
-      else {
+      if (emTrabalho) 
+      { 
+        playWorkEndTone(); //Toca a buzina do fim do trabson
+        iniciaFasePausa(); //Encerra a fase de trabalho
+      }                   
+      else 
+      { 
         //encerrarFasePausa();
         playBreakEndTone();
         cicloFinalizado = true;
-        if(num_ciclos > 1){
+        if(num_ciclos > 1)
+        {
           iniciarFaseTrabalho();
         }
         num_ciclos--;
       }
-
+      somTocado = true;
       atualizarTela();
     }
-
+    
     if (somTocado && tempoRestante >= 0) {
       somTocado = false;
     }
   }
-  if(num_ciclos <= 0 && cicloFinalizado == true) {//eh p dar tipo 2h
+  if(num_ciclos <= 0 && cicloFinalizado == true) // Acabaram todos os ciclos e o tempo de trabalho
+  {
     if(somTocado == true){
       somTocado = false;
       cicloFinalizado = true;
