@@ -11,7 +11,7 @@
 // // #include "respostas.json"
 // #include <ArduinoJson.h>
 
-// #define BUZZER_PIN 13
+// #define BUZZER_PIN 13 
 // #define BUTTON_PIN 36
 // #define BUZZER_CHANNEL 6    // Canal lógico PWM interno do ESP32
 // static const int servoPin = 5;
@@ -40,15 +40,15 @@
 
 
 // uint32_t lastSecond = 0;
-// int duracaoFoco = 5;
-// int duracaoPausa = 5;
+// int duracaoFoco = 5; // Variavel alterada no site
+// int duracaoPausa = 5; // 
 // int tempoRestante = duracaoFoco;
 // bool emTrabalho = true;
 // bool somTocado = false;
 // bool cicloFinalizado = false;
 // bool pomodoroIniciado = false;
 // bool esperandoResposta = false;
-// int num_ciclos = 1;
+// int num_ciclos = 1; 
 // String perguntaAtual = "";
 // bool girou = false;
 // //bool girouFim = false; // Variável para controlar o giro do servo no fim
@@ -221,17 +221,17 @@
 // bool teste = false;
 
 // void loop() {
-//   if (!pomodoroIniciado && digitalRead(BUTTON_PIN) == HIGH) {
+//   if (!pomodoroIniciado && digitalRead(BUTTON_PIN) == HIGH) { //Inicia o pomodoro e espera a resposta do 1ro questionario
 //     delay(200);
 //     perguntaAtual = "Como você se sente para estudar?";
 //     esperandoResposta = true;
 //     //mostrarPerguntaTFT(perguntaAtual);
-//     teste = true;
+//     flagPassouTelaInicial = true; //  
 //   }
 
-//   if (esperandoResposta) return;
+//   if (esperandoResposta) return; // Nao faz nada enquanto n tiver resposta
 
-//   if (!pomodoroIniciado && teste) {
+//   if (!pomodoroIniciado && flagPassouTelaInicial) {
 //     girarServoInicio();
 //     playWorkEndTone();
 //     tft.fillScreen(TFT_WHITE);
@@ -241,11 +241,14 @@
 //     tft.print("Pomodoro configuravel");
 //     pomodoroIniciado = true;
     
-//     teste = false;
+//     flagPassouTelaInicial = false; 
 //     lastSecond = millis();
+//     int tempoGiroTrabalho = duracaoFoco; // Para calcular a velocidade do nema17
+//     int tempoGiroPausa = duracaoPausa; 
 //   }
 
-//   if (pomodoroIniciado && millis() - lastSecond >= 1000 && num_ciclos > 0) {
+
+//   if (pomodoroIniciado && millis() - lastSecond >= 1000 && num_ciclos > 0) { 
 //     lastSecond += 1000;
 //     tempoRestante--;
 
